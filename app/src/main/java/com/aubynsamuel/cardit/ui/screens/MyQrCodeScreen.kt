@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -25,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.aubynsamuel.cardit.ui.components.BottomTabs
 import com.aubynsamuel.cardit.utils.generateQrCode
 import com.aubynsamuel.cardit.utils.showToast
 import com.aubynsamuel.cardit.utils.toJsonString
@@ -32,7 +35,7 @@ import com.aubynsamuel.cardit.viewmodels.ProfileViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyQrCodeScreen(profileViewModel: ProfileViewModel) {
+fun MyQrCodeScreen(profileViewModel: ProfileViewModel, navController: NavHostController) {
     val userProfile = profileViewModel.userProfile
     var qrBitmap by remember { mutableStateOf<Bitmap?>(null) }
     val context = LocalContext.current
@@ -54,7 +57,8 @@ fun MyQrCodeScreen(profileViewModel: ProfileViewModel) {
             TopAppBar(
                 title = { Text("My QR Code") }
             )
-        }
+        },
+        bottomBar = { BottomTabs(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -73,7 +77,9 @@ fun MyQrCodeScreen(profileViewModel: ProfileViewModel) {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Text("Scan to get my contact details.")
+                Text(
+                    "Scan to get my contact details.", color = MaterialTheme.colorScheme.primary
+                )
             } else {
                 CircularProgressIndicator()
                 Spacer(modifier = Modifier.height(16.dp))

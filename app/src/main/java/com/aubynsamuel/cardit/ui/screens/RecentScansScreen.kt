@@ -1,23 +1,14 @@
 package com.aubynsamuel.cardit.ui.screens
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -35,8 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.aubynsamuel.cardit.models.ScannedContact
+import androidx.navigation.NavHostController
 import com.aubynsamuel.cardit.models.UserProfile
+import com.aubynsamuel.cardit.ui.components.BottomTabs
+import com.aubynsamuel.cardit.ui.components.ScannedContactItem
 import com.aubynsamuel.cardit.viewmodels.RecentScansViewModel
 import com.google.gson.Gson
 
@@ -44,7 +37,8 @@ import com.google.gson.Gson
 @Composable
 fun RecentScansScreen(
     recentScansViewModel: RecentScansViewModel = viewModel(),
-    onNavigateToScanDetail: (scannedDataJson: String) -> Unit, // Pass the full JSON data
+    onNavigateToScanDetail: (scannedDataJson: String) -> Unit,
+    navController: NavHostController, // Pass the full JSON data
 ) {
     val recentScans by recentScansViewModel.recentScans.collectAsStateWithLifecycle()
     var showClearConfirmDialog by remember { mutableStateOf(false) }
@@ -73,13 +67,17 @@ fun RecentScansScreen(
                 actions = {
                     if (recentScans.isNotEmpty()) {
                         IconButton(onClick = { showClearConfirmDialog = true }) {
-                            Text("Clear", fontWeight = FontWeight.SemiBold)
-//                            Icon(Icons.Filled.Delete, contentDescription = "Clear All Scans")
+                            Text(
+                                "Clear",
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.primary
+                            )
                         }
                     }
                 }
             )
-        }
+        }, bottomBar = { BottomTabs(navController) }
+
     ) { paddingValues ->
         if (recentScans.isEmpty()) {
             Box(
@@ -88,7 +86,7 @@ fun RecentScansScreen(
                     .padding(paddingValues),
                 contentAlignment = Alignment.Center
             ) {
-                Text("No recent scans yet.")
+                Text("No scans yet.")
             }
         } else {
             LazyColumn(
@@ -96,7 +94,7 @@ fun RecentScansScreen(
                     .padding(paddingValues)
                     .fillMaxSize(),
                 contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(15.dp)
             ) {
                 items(recentScans, key = { it.id }) { scan ->
                     ScannedContactItem(
@@ -110,8 +108,8 @@ fun RecentScansScreen(
                                 instagramHandle = scan.instagramHandle ?: "",
                                 twitterHandle = scan.twitterHandle ?: "",
                                 linkedInHandle = scan.linkedInHandle ?: "",
-                                personalWebsite = scan.personalWebsite,
-                                profilePhotoUri = scan.profilePhotoUri,
+                                personalWebsite = scan.personalWebsite.toString(),
+                                profilePhotoUri = scan.profilePhotoUri.toString(),
                                 // Assume all details from a saved scan are meant to be "shared" for display
                                 sharePhoneNumber = scan.phoneNumber != null,
                                 shareEmail = scan.emailAddress != null,
@@ -126,34 +124,6 @@ fun RecentScansScreen(
                         }
                     )
                 }
-            }
-        }
-    }
-}
-
-@Composable
-fun ScannedContactItem(contact: ScannedContact, onDelete: () -> Unit, onClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(vertical = 16.dp)
-                .padding(start = 16.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(contact.fullName, style = MaterialTheme.typography.titleMedium)
-                if (!contact.phoneNumber.isNullOrBlank()) Text("Phone: ${contact.phoneNumber}")
-                if (!contact.emailAddress.isNullOrBlank()) Text("Email: ${contact.emailAddress}")
-            }
-            IconButton(onClick = onDelete) {
-                Icon(Icons.Filled.Delete, contentDescription = "Delete Scan")
             }
         }
     }

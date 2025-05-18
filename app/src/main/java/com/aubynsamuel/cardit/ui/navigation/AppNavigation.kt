@@ -1,22 +1,16 @@
 package com.aubynsamuel.cardit.ui.navigation
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.aubynsamuel.cardit.ui.screens.EditProfileScreen
 import com.aubynsamuel.cardit.ui.screens.MyQrCodeScreen
 import com.aubynsamuel.cardit.ui.screens.ProfileScreen
 import com.aubynsamuel.cardit.ui.screens.RecentScansScreen
@@ -26,88 +20,77 @@ import com.aubynsamuel.cardit.viewmodels.ProfileViewModel
 import com.aubynsamuel.cardit.viewmodels.RecentScansViewModel
 import java.net.URLDecoder
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
     val profileViewModel: ProfileViewModel = viewModel()
     val recentScansViewModel: RecentScansViewModel = viewModel()
 
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-
-    val items = listOf(
-        ScreenNavItem.Profile,
-        ScreenNavItem.MyQRCode,
-        ScreenNavItem.ScanQR,
-        ScreenNavItem.RecentScans
-    )
-
-    Column {
-        NavHost(
-            navController = navController,
-            startDestination = AppRoutes.PROFILE,
-            modifier = Modifier.weight(1f)
-        ) {
-            composable(AppRoutes.PROFILE) {
-                ProfileScreen(
-                    profileViewModel = profileViewModel,
-                    onSaveProfile = {
-                        navController.navigate(AppRoutes.MY_QR_CODE)
-                    }
-                )
-            }
-            composable(AppRoutes.MY_QR_CODE) {
-                MyQrCodeScreen(profileViewModel = profileViewModel)
-            }
-            composable(AppRoutes.SCAN_QR) {
-                ScanQrScreen(
-                    recentScansViewModel = recentScansViewModel,
-                    onQrCodeScanned = { data ->
-                        navController.navigate(AppRoutes.scannedContactDetailRoute(data)) {
-                            popUpTo(AppRoutes.SCAN_QR) { inclusive = true }
+    NavHost(
+        navController = navController,
+        startDestination = AppRoutes.PROFILE,
+        modifier = Modifier
+    ) {
+        composable(AppRoutes.PROFILE) {
+            ProfileScreen(
+                profileViewModel = profileViewModel,
+                navController = navController
+            )
+        }
+        composable(AppRoutes.EDIT_PROFILE) {
+            EditProfileScreen(
+                profileViewModel = profileViewModel,
+                onSaveProfile = {
+                    navController.popBackStack()
+                },
+            )
+        }
+        composable(AppRoutes.MY_QR_CODE) {
+            MyQrCodeScreen(
+                profileViewModel = profileViewModel, navController = navController
+            )
+        }
+        composable(AppRoutes.SCAN_QR) {
+            ScanQrScreen(
+                recentScansViewModel = recentScansViewModel,
+                onQrCodeScanned = { data ->
+                    navController.navigate(AppRoutes.scannedContactDetailRoute(data)) {
+                        popUpTo(AppRoutes.SCAN_QR) {
+                            inclusive = false
                         }
                     }
-                )
-            }
-            composable(AppRoutes.RECENT_SCANS) {
-                RecentScansScreen(
-                    recentScansViewModel = recentScansViewModel,
-                    onNavigateToScanDetail = { data ->
-                        navController.navigate(AppRoutes.scannedContactDetailRoute(data))
-                    }
-                )
-            }
-            composable(
-                route = AppRoutes.SCANNED_CONTACT_DETAIL,
-                arguments = listOf(navArgument("scannedData") { type = NavType.StringType })
-            ) { backStackEntry ->
-                val scannedDataEncoded = backStackEntry.arguments?.getString("scannedData") ?: ""
-                val scannedDataDecoded = URLDecoder.decode(scannedDataEncoded, "UTF-8")
-                ScannedContactScreen(
-                    scannedData = scannedDataDecoded,
-                    onClose = { navController.popBackStack() } // Or navigate to RecentScans
-                )
-            }
+                },
+                navController = navController
+            )
         }
-        NavigationBar(
-            modifier = Modifier
-        ) {
-            items.forEach { screen ->
-                NavigationBarItem(
-                    icon = { Icon(screen.icon, contentDescription = screen.title) },
-                    label = { Text(screen.title) },
-                    selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                    onClick = {
-                        navController.navigate(screen.route) {
-                            popUpTo(AppRoutes.PROFILE) {
-                                inclusive = false
-                            }
-                        }
-                    }
-                )
-            }
+        composable(AppRoutes.RECENT_SCANS) {
+            RecentScansScreen(
+                recentScansViewModel = recentScansViewModel,
+                onNavigateToScanDetail = { data ->
+                    navController.navigate(AppRoutes.scannedContactDetailRoute(data))
+                },
+                navController = navController
+            )
         }
-
+        composable(
+            route = AppRoutes.SCANNED_CONTACT_DETAIL,
+            arguments = listOf(navArgument("scannedData") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val scannedDataEncoded = backStackEntry.arguments?.getString("scannedData") ?: ""
+            val scannedDataDecoded = URLDecoder.decode(scannedDataEncoded, "UTF-8")
+            ScannedContactScreen(
+                scannedData = scannedDataDecoded,
+                onClose = { navController.popBackStack() },
+            )
+        }
     }
 }
+
+val navItems = listOf(
+    ScreenNavItem.Profile,
+    ScreenNavItem.MyQRCode,
+    ScreenNavItem.ScanQR,
+    ScreenNavItem.RecentScans
+)
+

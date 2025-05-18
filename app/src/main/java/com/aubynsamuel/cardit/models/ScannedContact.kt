@@ -13,6 +13,6 @@ data class ScannedContact(
     val twitterHandle: String?,
     val linkedInHandle: String?,
     val personalWebsite: String?,
-    val profilePhotoUri: String?, // Store the URI if available from scanned data
+    val profilePhotoUri: String?,
     val scannedDate: Long = System.currentTimeMillis(),
 )

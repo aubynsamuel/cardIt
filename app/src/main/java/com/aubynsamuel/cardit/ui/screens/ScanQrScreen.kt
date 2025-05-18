@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -37,6 +38,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.navigation.NavHostController
+import com.aubynsamuel.cardit.ui.components.BottomTabs
 import com.aubynsamuel.cardit.viewmodels.RecentScansViewModel
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -50,6 +53,7 @@ import java.util.concurrent.Executors
 fun ScanQrScreen(
     recentScansViewModel: RecentScansViewModel,
     onQrCodeScanned: (scannedData: String) -> Unit,
+    navController: NavHostController,
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -74,7 +78,8 @@ fun ScanQrScreen(
     }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Scan QR Code") }) }
+        topBar = { TopAppBar(title = { Text("Scan QR Code") }) },
+        bottomBar = { BottomTabs(navController) }
     ) { paddingValues ->
         Column(
             Modifier
@@ -151,9 +156,15 @@ fun ScanQrScreen(
                         .fillMaxWidth()
                         .aspectRatio(1f)
                 )
-                Text("Point camera at a QR code.", Modifier.padding(16.dp))
+                Text(
+                    text = "Point camera at a QR code.",
+                    Modifier.padding(16.dp),
+                )
             } else {
-                Text("Camera permission is required to scan QR codes.")
+                Text(
+                    "Camera permission is required to scan QR codes.",
+                    color = MaterialTheme.colorScheme.primary
+                )
                 Spacer(Modifier.height(8.dp))
                 Button(onClick = { permissionLauncher.launch(Manifest.permission.CAMERA) }) {
                     Text("Request Permission")

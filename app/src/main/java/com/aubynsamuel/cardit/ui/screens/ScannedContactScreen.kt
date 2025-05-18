@@ -2,12 +2,18 @@ package com.aubynsamuel.cardit.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Link
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -44,65 +50,86 @@ fun ScannedContactScreen(
             errorParsing = true
         }
     }
-
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Scanned Contact") }) }
+        topBar = {
+            TopAppBar(title = {
+                Text(
+                    displayedProfile?.fullName ?: "",
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            })
+        },
     ) { paddingValues ->
         Column(
             Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(15.dp)
+            verticalArrangement = Arrangement.spacedBy(25.dp)
         ) {
             if (errorParsing || displayedProfile == null) {
                 Text("Could not parse contact details. Raw data:")
                 Text(scannedData)
             } else {
                 val profile = displayedProfile!!
-                Text(profile.fullName, style = MaterialTheme.typography.headlineSmall)
+//                Text(profile.fullName, style = MaterialTheme.typography.headlineSmall)
 
                 if (profile.sharePhoneNumber && profile.phoneNumber.isNotBlank()) {
-                    ClickableText(
-                        text = AnnotatedString("📞 ${profile.phoneNumber}"),
-                        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
-                        onClick = { uriHandler.openUri("tel:${profile.phoneNumber}") }
-                    )
+                    RowItems {
+                        Icon(Icons.Default.Phone, contentDescription = "")
+                        ClickableText(
+                            text = AnnotatedString(profile.phoneNumber),
+                            style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
+                            onClick = { uriHandler.openUri("tel:${profile.phoneNumber}") }
+                        )
+                    }
                 }
                 if (profile.shareEmail && profile.emailAddress.isNotBlank()) {
-                    ClickableText(
-                        text = AnnotatedString("✉️ ${profile.emailAddress}"),
-                        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
-                        onClick = { uriHandler.openUri("mailto:${profile.emailAddress}") }
-                    )
+                    RowItems {
+                        Icon(Icons.Default.Email, contentDescription = "")
+                        ClickableText(
+                            text = AnnotatedString(profile.emailAddress),
+                            style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
+                            onClick = { uriHandler.openUri("mailto:${profile.emailAddress}") }
+                        )
+                    }
                 }
                 if (profile.shareInstagram && profile.instagramHandle.isNotBlank()) {
-                    ClickableText(
-                        text = AnnotatedString("📸 @${profile.instagramHandle}"),
-                        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
-                        onClick = { uriHandler.openUri("https://instagram.com/${profile.instagramHandle}") }
-                    )
+                    RowItems {
+                        ClickableText(
+                            text = AnnotatedString("📸   @${profile.instagramHandle}"),
+                            style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
+                            onClick = { uriHandler.openUri("https://instagram.com/${profile.instagramHandle}") }
+                        )
+                    }
                 }
                 if (profile.shareTwitter && profile.twitterHandle.isNotBlank()) {
-                    ClickableText(
-                        text = AnnotatedString("🐦 @${profile.twitterHandle}"),
-                        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
-                        onClick = { uriHandler.openUri("https://twitter.com/${profile.twitterHandle}") }
-                    )
+                    RowItems {
+                        ClickableText(
+                            text = AnnotatedString("🐦   @${profile.twitterHandle}"),
+                            style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
+                            onClick = { uriHandler.openUri("https://twitter.com/${profile.twitterHandle}") }
+                        )
+                    }
                 }
                 if (profile.shareLinkedIn && profile.linkedInHandle.isNotBlank()) {
-                    ClickableText(
-                        text = AnnotatedString("💼 ${profile.linkedInHandle}"),
-                        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
-                        onClick = { uriHandler.openUri("https://linkedin.com/in/${profile.linkedInHandle}") }
-                    )
+                    RowItems {
+                        ClickableText(
+                            text = AnnotatedString("💼   ${profile.linkedInHandle}"),
+                            style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
+                            onClick = { uriHandler.openUri("https://linkedin.com/in/${profile.linkedInHandle}") }
+                        )
+                    }
                 }
-                if (profile.shareWebsite && profile.personalWebsite?.isNotBlank() == true) {
-                    ClickableText(
-                        text = AnnotatedString("🔗 ${profile.personalWebsite}"),
-                        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
-                        onClick = { uriHandler.openUri(profile.personalWebsite) }
-                    )
+                if (profile.shareWebsite && profile.personalWebsite.isNotBlank() == true) {
+                    RowItems {
+                        Icon(Icons.Default.Link, contentDescription = "")
+                        ClickableText(
+                            text = AnnotatedString(profile.personalWebsite),
+                            style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.primary),
+                            onClick = { uriHandler.openUri(profile.personalWebsite) }
+                        )
+                    }
                 }
             }
 
@@ -115,5 +142,16 @@ fun ScannedContactScreen(
                 Text("Close")
             }
         }
+    }
+}
+
+@Composable
+fun RowItems(items: @Composable (() -> Unit)) {
+    Row(
+        modifier = Modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        items()
     }
 }

@@ -7,8 +7,8 @@ data class UserProfile(
     val instagramHandle: String = "",
     val twitterHandle: String = "",
     val linkedInHandle: String = "",
-    val personalWebsite: String? = null,
-    val profilePhotoUri: String? = null,
+    val personalWebsite: String = "",
+    val profilePhotoUri: String = "",
     // For toggling shared details
     val sharePhoneNumber: Boolean = true,
     val shareEmail: Boolean = true,
@@ -20,12 +20,12 @@ data class UserProfile(
 )
 
 enum class ProfileEnum {
-    FULLNAME,
-    PHONENUMBER,
-    EMAILADDRESS,
-    INSTAGRAMHANDLE,
-    TWITTERHANDLE,
-    LINKEDINHANDLE,
-    PERSONALWEBSITE,
-    PROFILEURI,
+    FULL_NAME,
+    PHONE_NUMBER,
+    EMAIL_ADDRESS,
+    INSTAGRAM_HANDLE,
+    TWITTER_HANDLE,
+    LINKEDIN_HANDLE,
+    PERSONAL_WEBSITE,
+    PROFILE_URI,
 }

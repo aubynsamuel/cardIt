@@ -25,14 +25,14 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
     fun updateProfileDetails(detail: ProfileEnum, value: String) {
         userProfile = when (detail) {
-            ProfileEnum.FULLNAME -> userProfile.copy(fullName = value)
-            ProfileEnum.PHONENUMBER -> userProfile.copy(phoneNumber = value)
-            ProfileEnum.EMAILADDRESS -> userProfile.copy(emailAddress = value)
-            ProfileEnum.INSTAGRAMHANDLE -> userProfile.copy(instagramHandle = value)
-            ProfileEnum.TWITTERHANDLE -> userProfile.copy(twitterHandle = value)
-            ProfileEnum.LINKEDINHANDLE -> userProfile.copy(linkedInHandle = value)
-            ProfileEnum.PERSONALWEBSITE -> userProfile.copy(personalWebsite = value)
-            ProfileEnum.PROFILEURI -> userProfile.copy(profilePhotoUri = value)
+            ProfileEnum.FULL_NAME -> userProfile.copy(fullName = value)
+            ProfileEnum.PHONE_NUMBER -> userProfile.copy(phoneNumber = value)
+            ProfileEnum.EMAIL_ADDRESS -> userProfile.copy(emailAddress = value)
+            ProfileEnum.INSTAGRAM_HANDLE -> userProfile.copy(instagramHandle = value)
+            ProfileEnum.TWITTER_HANDLE -> userProfile.copy(twitterHandle = value)
+            ProfileEnum.LINKEDIN_HANDLE -> userProfile.copy(linkedInHandle = value)
+            ProfileEnum.PERSONAL_WEBSITE -> userProfile.copy(personalWebsite = value)
+            ProfileEnum.PROFILE_URI -> userProfile.copy(profilePhotoUri = value)
         }
     }
 

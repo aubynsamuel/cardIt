@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         release {
-            val boolean = false
+            val boolean = true
             isMinifyEnabled = boolean
             isShrinkResources = boolean
             proguardFiles(
@@ -89,7 +89,7 @@ dependencies {
 
 //    // QR Code Generation (qrcode-kotlin)
 //    implementation(libs.qrcode.kotlin)
-    implementation("com.google.zxing:core:3.5.3")
+    implementation(libs.core)
 
     implementation(libs.androidx.material.icons.extended)
 
