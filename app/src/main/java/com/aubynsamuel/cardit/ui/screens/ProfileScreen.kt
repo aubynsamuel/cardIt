@@ -1,6 +1,5 @@
 package com.aubynsamuel.cardit.ui.screens
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,10 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -23,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,6 +27,7 @@ import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.aubynsamuel.cardit.ui.components.BottomTabs
 import com.aubynsamuel.cardit.ui.components.DetailItem
 import com.aubynsamuel.cardit.ui.components.ItemRow
@@ -86,22 +82,13 @@ fun ProfileScreen(
                     .clip(CircleShape),
                 contentAlignment = Alignment.Center
             ) {
-                if (userProfile.profilePhotoUri.isNotBlank()) {
-                    AsyncImage(
-                        model = userProfile.profilePhotoUri.toUri(),
-                        contentDescription = "Profile Photo",
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop
-                    )
-                } else {
-                    Icon(
-                        Icons.Default.Person,
-                        contentDescription = "Profile Picture Placeholder",
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .border(width = 1.dp, shape = CircleShape, color = Color.Gray),
-                    )
-                }
+                AsyncImage(
+                    model = userProfile.profilePhotoUri.toUri(),
+                    contentDescription = "Profile Photo",
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop,
+                    error = rememberAsyncImagePainter(com.aubynsamuel.cardit.R.drawable.person)
+                )
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,

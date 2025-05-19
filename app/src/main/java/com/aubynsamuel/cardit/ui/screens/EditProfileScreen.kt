@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,7 +17,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,7 +29,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.aubynsamuel.cardit.models.ProfileEnum
 import com.aubynsamuel.cardit.ui.components.ItemRow
 import com.aubynsamuel.cardit.ui.components.SwitchableTextField
@@ -110,22 +108,13 @@ fun EditProfileScreen(
                     },
                 contentAlignment = Alignment.Center
             ) {
-                if (userProfile.profilePhotoUri.isNotBlank()) {
-                    AsyncImage(
-                        model = userProfile.profilePhotoUri.toUri(),
-                        contentDescription = "Profile Photo",
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop
-                    )
-                } else {
-                    Icon(
-                        Icons.Default.Person,
-                        contentDescription = "Profile Picture Placeholder",
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .border(width = 1.dp, shape = CircleShape, color = Color.Gray),
-                    )
-                }
+                AsyncImage(
+                    model = userProfile.profilePhotoUri.toUri(),
+                    contentDescription = "Profile Photo",
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop,
+                    error = rememberAsyncImagePainter(com.aubynsamuel.cardit.R.drawable.person)
+                )
             }
             Text(
                 text = "Change Profile Picture",
