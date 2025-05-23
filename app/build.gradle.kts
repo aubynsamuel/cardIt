@@ -2,8 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("kotlin-kapt")
     alias(libs.plugins.baselineprofile)
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -72,25 +73,26 @@ dependencies {
     implementation(libs.androidx.camera.camera2)
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
-//    implementation("androidx.camera:camera-extensions:1.4.1")
 
     // Room for Recent Scans
     implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
     // Coil for Image Loading (Profile Photo)
     implementation(libs.coil.compose)
 
     implementation(libs.gson)
-//    implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-
-//    // QR Code Generation (qrcode-kotlin)
-//    implementation(libs.qrcode.kotlin)
+    // QR Code Generation (qrcode-kotlin)
     implementation(libs.core)
 
+    // Material Icons
     implementation(libs.androidx.material.icons.extended)
 
+    // Dependency Injection
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    ksp(libs.hilt.android.compiler)
 }
