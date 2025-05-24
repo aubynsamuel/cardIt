@@ -1,4 +1,4 @@
-package com.aubynsamuel.cardit.ui.theme
+package com.aubynsamuel.cardit.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
