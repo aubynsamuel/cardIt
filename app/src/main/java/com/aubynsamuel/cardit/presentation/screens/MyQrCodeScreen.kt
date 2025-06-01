@@ -60,7 +60,6 @@ fun MyQrCodeScreen(
             qrBitmap = null
         }
     }
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -77,32 +76,26 @@ fun MyQrCodeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            when {
-                isLoading -> {
-                    CircularProgressIndicator()
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text("Generating QR code...")
-                }
-
-                qrBitmap != null -> {
-                    Image(
-                        bitmap = qrBitmap!!.asImageBitmap(),
-                        contentDescription = "My Contact QR Code",
-                        modifier = Modifier.size(300.dp)
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        "Scan to get my contact details.",
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                }
-
-                else -> {
-                    Text(
-                        "No QR code to display. Check your profile.",
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
+            if (qrBitmap != null) {
+                Image(
+                    bitmap = qrBitmap!!.asImageBitmap(),
+                    contentDescription = "My Contact QR Code",
+                    modifier = Modifier.size(300.dp)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    "Scan to get my contact details.",
+                    color = MaterialTheme.colorScheme.primary
+                )
+            } else if (isLoading) {
+                CircularProgressIndicator()
+                Spacer(modifier = Modifier.height(16.dp))
+                Text("Generating QR code...")
+            } else {
+                Text(
+                    "No QR code to display. Check your profile.",
+                    style = MaterialTheme.typography.bodyLarge
+                )
             }
         }
     }
