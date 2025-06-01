@@ -1,5 +1,6 @@
 package com.aubynsamuel.cardit.presentation.components
 
+import android.util.Log
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -30,9 +31,11 @@ fun BottomTabs(navController: NavController) {
                 label = { Text(screen.title) },
                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                 onClick = {
-                    navController.navigate(screen.route) {
-                        popUpTo(AppRoutes.PROFILE) {
-                            inclusive = false
+                    if (currentDestination?.hierarchy?.any { it.route == screen.route } == false) {
+                        navController.navigate(screen.route) {
+                            popUpTo(AppRoutes.PROFILE) {
+                                inclusive = false
+                            }
                         }
                     }
                 }
