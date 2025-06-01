@@ -54,6 +54,7 @@ class BaselineProfileGenerator {
             // Start default activity for your app
             pressHome()
             startActivityAndWait()
+            Thread.sleep(5000)
 
         }
     }
