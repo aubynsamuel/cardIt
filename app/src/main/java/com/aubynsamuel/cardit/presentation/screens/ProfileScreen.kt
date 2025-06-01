@@ -1,5 +1,8 @@
 package com.aubynsamuel.cardit.presentation.screens
 
+import android.content.Context
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,10 +19,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,6 +36,7 @@ import androidx.core.net.toUri
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
+import com.aubynsamuel.cardit.MainActivity
 import com.aubynsamuel.cardit.R
 import com.aubynsamuel.cardit.presentation.components.BottomTabs
 import com.aubynsamuel.cardit.presentation.components.DetailItem
@@ -34,6 +44,8 @@ import com.aubynsamuel.cardit.presentation.components.ItemRow
 import com.aubynsamuel.cardit.presentation.components.SwitchableTextField
 import com.aubynsamuel.cardit.presentation.navigation.AppRoutes
 import com.aubynsamuel.cardit.presentation.viewmodels.ProfileViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +54,22 @@ fun ProfileScreen(
     navController: NavHostController,
 ) {
     val userProfile = profileViewModel.userProfile
+    val context: Context = LocalContext.current
+    var backButtonPressed by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+
+    BackHandler(enabled = true, onBack = {
+        if (backButtonPressed) {
+            (context as? MainActivity)?.finish()
+        } else {
+            backButtonPressed = true
+            Toast.makeText(context, "Press again to exit", Toast.LENGTH_SHORT).show()
+            scope.launch {
+                delay(2000)
+                backButtonPressed = false
+            }
+        }
+    })
 
     Scaffold(
         topBar = {
