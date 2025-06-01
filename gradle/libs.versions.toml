@@ -23,6 +23,7 @@ profileinstaller = "1.4.1"
 hiltAndroid = "2.56.2"
 hiltAndroidCompiler = "2.56.2"
 hiltNavigationCompose = "1.2.0"
+material3 = "1.4.0-alpha15"
 
 [libraries]
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCore" }
@@ -59,6 +60,7 @@ androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profi
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
