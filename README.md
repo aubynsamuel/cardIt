@@ -1,4 +1,5 @@
 <div align="center">
+    <img src="app/src/main/ic_launcher-playstore.png" width="128" alt="Profile Screen">
 
 # CardIt
 
@@ -11,8 +12,8 @@ A modern Android app that transforms your smartphone into a digital business car
 <div align="center" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1px;">
     <img src="screenshots/ProfileScreen-portrait.webp" width="300" alt="Profile Screen">
     <img src="screenshots/Recent_Scans-portrait.webp" width="300" alt="Recent Scans Screen">
-    <img src="screenshots/Contact_Screen-portrait.webp" width="300" alt="Contact Screen">
     <img src="screenshots/MyQRCode_Screen-portrait.webp" width="300" alt="My QR Code Screen">
+    <img src="screenshots/Contact_Screen-portrait.webp" width="300" alt="Contact Screen">
 </div>
 
 ## ✨ Features

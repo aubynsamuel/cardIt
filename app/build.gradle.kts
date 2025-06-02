@@ -14,16 +14,16 @@ android {
     defaultConfig {
         applicationId = "com.aubynsamuel.cardit"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            val boolean = false
+            val boolean = true
             isMinifyEnabled = boolean
             isShrinkResources = boolean
             proguardFiles(
