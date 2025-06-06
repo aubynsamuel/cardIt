@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.aubynsamuel.cardit.presentation.components.BottomTabs
 import com.aubynsamuel.cardit.presentation.utils.QrCodeGenerator
 import com.aubynsamuel.cardit.presentation.utils.showToast
 import com.aubynsamuel.cardit.presentation.viewmodels.ProfileViewModel
@@ -66,7 +65,6 @@ fun MyQrCodeScreen(
                 title = { Text("My QR Code") }
             )
         },
-        bottomBar = { BottomTabs(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier

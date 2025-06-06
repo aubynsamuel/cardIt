@@ -39,7 +39,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavHostController
-import com.aubynsamuel.cardit.presentation.components.BottomTabs
 import com.aubynsamuel.cardit.presentation.viewmodels.RecentScansViewModel
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -78,8 +77,7 @@ fun ScanQrScreen(
     }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Scan QR Code") }) },
-        bottomBar = { BottomTabs(navController) }
+        topBar = { TopAppBar(title = { Text("Scan QR Code") }) }
     ) { paddingValues ->
         Column(
             Modifier

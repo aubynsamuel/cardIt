@@ -19,11 +19,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,7 +38,6 @@ import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.aubynsamuel.cardit.MainActivity
 import com.aubynsamuel.cardit.R
-import com.aubynsamuel.cardit.presentation.components.BottomTabs
 import com.aubynsamuel.cardit.presentation.components.DetailItem
 import com.aubynsamuel.cardit.presentation.components.ItemRow
 import com.aubynsamuel.cardit.presentation.components.SwitchableTextField
@@ -94,7 +93,6 @@ fun ProfileScreen(
                 },
             )
         },
-        bottomBar = { BottomTabs(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier

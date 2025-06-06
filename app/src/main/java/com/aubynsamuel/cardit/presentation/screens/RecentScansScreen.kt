@@ -28,7 +28,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.aubynsamuel.cardit.domain.model.UserProfile
-import com.aubynsamuel.cardit.presentation.components.BottomTabs
 import com.aubynsamuel.cardit.presentation.components.ContactItem
 import com.aubynsamuel.cardit.presentation.viewmodels.RecentScansViewModel
 import com.google.gson.Gson
@@ -76,8 +75,7 @@ fun RecentScansScreen(
                     }
                 }
             )
-        }, bottomBar = { BottomTabs(navController) }
-
+        }
     ) { paddingValues ->
         if (recentScans.isEmpty()) {
             Box(

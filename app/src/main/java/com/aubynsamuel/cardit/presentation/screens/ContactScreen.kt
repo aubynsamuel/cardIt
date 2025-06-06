@@ -1,5 +1,6 @@
 package com.aubynsamuel.cardit.presentation.screens
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -64,7 +65,8 @@ fun ContactScreen(
             Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(16.dp)
+                .animateContentSize(),
             verticalArrangement = Arrangement.spacedBy(25.dp)
         ) {
             if (errorParsing || displayedProfile == null) {
