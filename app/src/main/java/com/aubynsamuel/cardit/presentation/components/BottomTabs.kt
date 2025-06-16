@@ -1,6 +1,5 @@
 package com.aubynsamuel.cardit.presentation.components
 
-import android.util.Log
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar

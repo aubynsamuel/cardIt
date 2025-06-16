@@ -6,6 +6,7 @@ import com.aubynsamuel.cardit.data.mappers.toDomain
 import com.aubynsamuel.cardit.data.mappers.toScannedContactModel
 import com.aubynsamuel.cardit.domain.model.Contact
 import com.aubynsamuel.cardit.domain.model.UserProfile
+import com.aubynsamuel.cardit.presentation.utils.validateContactDetails
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import kotlinx.coroutines.flow.Flow
@@ -26,9 +27,14 @@ class ContactRepository @Inject constructor(
     suspend fun saveContact(qrData: String): Boolean {
         return try {
             val userProfile = gson.fromJson(qrData, UserProfile::class.java)
-            val scannedContactModel = userProfile.toScannedContactModel()
-            dao.insertContact(scannedContactModel)
-            true
+            val isValidContact = validateContactDetails(userProfile)
+            if (isValidContact) {
+                val scannedContactModel = userProfile.toScannedContactModel()
+                dao.insertContact(scannedContactModel)
+                true
+            } else {
+                false
+            }
         } catch (e: JsonSyntaxException) {
             println("Error parsing QR data: ${e.message}")
             false
