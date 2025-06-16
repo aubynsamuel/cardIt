@@ -50,6 +50,7 @@ class ProfileViewModel @Inject constructor(
     fun toggleShareDetail(detail: String, enabled: Boolean) {
         userProfile = toggleShareDetailUseCase(userProfile, detail, enabled)
         updateQrData()
+        saveProfile()
     }
 
     fun saveProfile() {
