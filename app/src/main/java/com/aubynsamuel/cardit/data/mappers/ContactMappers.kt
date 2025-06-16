@@ -1,9 +1,11 @@
 package com.aubynsamuel.cardit.data.mappers
 
+import androidx.annotation.Keep
 import com.aubynsamuel.cardit.data.local.ContactModel
 import com.aubynsamuel.cardit.domain.model.Contact
 import com.aubynsamuel.cardit.domain.model.UserProfile
 
+@Keep
 fun ContactModel.toDomain(): Contact {
     return Contact(
         id = this.id,
@@ -19,6 +21,7 @@ fun ContactModel.toDomain(): Contact {
     )
 }
 
+@Keep
 fun Contact.toData(): ContactModel {
     return ContactModel(
         id = this.id,
@@ -34,6 +37,7 @@ fun Contact.toData(): ContactModel {
     )
 }
 
+@Keep
 fun UserProfile.toScannedContactModel(): ContactModel {
     return ContactModel(
         fullName = this.fullName,

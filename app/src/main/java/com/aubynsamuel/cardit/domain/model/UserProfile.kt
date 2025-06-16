@@ -1,5 +1,8 @@
 package com.aubynsamuel.cardit.domain.model
 
+import androidx.annotation.Keep
+
+@Keep
 data class UserProfile(
     val fullName: String = "",
     val phoneNumber: String = "",

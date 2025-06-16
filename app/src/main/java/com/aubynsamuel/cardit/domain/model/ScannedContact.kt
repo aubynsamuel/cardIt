@@ -1,5 +1,8 @@
 package com.aubynsamuel.cardit.domain.model
 
+import androidx.annotation.Keep
+
+@Keep
 data class Contact(
     val id: Int = 0,
     val fullName: String,
