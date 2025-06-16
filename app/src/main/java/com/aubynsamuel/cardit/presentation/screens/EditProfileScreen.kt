@@ -123,14 +123,13 @@ fun EditProfileScreen(
                 )
             }
             Text(
-                text = "Change Profile Picture",
+                text = "Remove Profile Picture",
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.clickable {
-                    singlePhotoPickerLauncher.launch(
-                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                    )
-                })
+                    profileViewModel.updateProfileDetails(ProfileEnum.PROFILE_URI, "")
+                }
+            )
 
             ItemRow(
                 detailInputField = {
