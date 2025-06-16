@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.aubynsamuel.cardit.presentation.utils.QrCodeGenerator
 import com.aubynsamuel.cardit.presentation.utils.showToast
 import com.aubynsamuel.cardit.presentation.viewmodels.ProfileViewModel
@@ -37,7 +36,6 @@ import kotlinx.coroutines.withContext
 @Composable
 fun MyQrCodeScreen(
     profileViewModel: ProfileViewModel,
-    navController: NavHostController,
 ) {
     val qrDataString = profileViewModel.qrDataString
     var qrBitmap by remember { mutableStateOf<Bitmap?>(null) }

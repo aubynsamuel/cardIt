@@ -38,7 +38,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.navigation.NavHostController
 import com.aubynsamuel.cardit.presentation.viewmodels.RecentScansViewModel
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -52,7 +51,6 @@ import java.util.concurrent.Executors
 fun ScanQrScreen(
     recentScansViewModel: RecentScansViewModel,
     onQrCodeScanned: (scannedData: String) -> Unit,
-    navController: NavHostController,
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current

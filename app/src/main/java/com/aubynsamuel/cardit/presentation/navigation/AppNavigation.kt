@@ -68,7 +68,7 @@ fun AppNavigation() {
             }
             composable(AppRoutes.MY_QR_CODE) {
                 MyQrCodeScreen(
-                    profileViewModel = profileViewModel, navController = navController
+                    profileViewModel = profileViewModel
                 )
             }
             composable(AppRoutes.SCAN_QR) {
@@ -81,7 +81,6 @@ fun AppNavigation() {
                             }
                         }
                     },
-                    navController = navController
                 )
             }
             composable(AppRoutes.RECENT_SCANS) {
@@ -90,7 +89,6 @@ fun AppNavigation() {
                     onNavigateToScanDetail = { data ->
                         navController.navigate(AppRoutes.contactDetailRoute(data))
                     },
-                    navController = navController
                 )
             }
             composable(
