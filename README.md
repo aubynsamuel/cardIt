@@ -72,4 +72,4 @@ A modern Android app that transforms your smartphone into a digital business car
 
 ---
 
-**Ready to go digital?** Download CardIt and revolutionize the way you share contact information!
+**Ready to go digital?** [Download](https://github.com/aubynsamuel/cardIt/releases) CardIt and revolutionize the way you share contact information!
