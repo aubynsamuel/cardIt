@@ -38,6 +38,7 @@ import androidx.core.net.toUri
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
+import com.aubynsamuel.cardit.MainActivity
 import com.aubynsamuel.cardit.R
 import com.aubynsamuel.cardit.ui.components.DetailItem
 import com.aubynsamuel.cardit.ui.components.ItemRow
@@ -60,7 +61,7 @@ fun ProfileScreen(
 
     BackHandler(enabled = true, onBack = {
         if (backButtonPressed) {
-//            (context as? MainActivity).finish()
+            (context as? MainActivity)?.finish()
         } else {
             backButtonPressed = true
             Toast.makeText(context, "Press again to exit", Toast.LENGTH_SHORT).show()
