@@ -38,6 +38,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.navigation.NavController
+import com.aubynsamuel.cardit.ui.components.BottomTabs
 import com.aubynsamuel.cardit.ui.viewmodels.RecentScansViewModel
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -51,6 +53,7 @@ import java.util.concurrent.Executors
 fun ScanQrScreen(
     recentScansViewModel: RecentScansViewModel,
     onQrCodeScanned: (scannedData: String) -> Unit,
+    navController: NavController,
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -75,7 +78,8 @@ fun ScanQrScreen(
     }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Scan QR Code") }) }
+        topBar = { TopAppBar(title = { Text("Scan QR Code") }) },
+        bottomBar = { BottomTabs(navController) }
     ) { paddingValues ->
         Column(
             Modifier

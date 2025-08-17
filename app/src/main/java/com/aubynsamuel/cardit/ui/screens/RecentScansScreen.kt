@@ -26,6 +26,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.aubynsamuel.cardit.ui.components.BottomTabs
 import com.aubynsamuel.cardit.ui.components.ContactItem
 import com.aubynsamuel.cardit.ui.viewmodels.RecentScansViewModel
 import com.aubynsamuel.core.model.UserProfile
@@ -36,6 +38,7 @@ import com.google.gson.Gson
 fun RecentScansScreen(
     recentScansViewModel: RecentScansViewModel = viewModel(),
     onNavigateToScanDetail: (scannedDataJson: String) -> Unit,
+    navController: NavController,
 ) {
     val recentScans by recentScansViewModel.recentScans.collectAsStateWithLifecycle()
     var showClearConfirmDialog by remember { mutableStateOf(false) }
@@ -73,7 +76,8 @@ fun RecentScansScreen(
                     }
                 }
             )
-        }
+        },
+        bottomBar = { BottomTabs(navController) }
     ) { paddingValues ->
         if (recentScans.isEmpty()) {
             Box(

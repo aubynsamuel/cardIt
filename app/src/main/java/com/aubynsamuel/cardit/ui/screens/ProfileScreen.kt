@@ -40,6 +40,7 @@ import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.aubynsamuel.cardit.MainActivity
 import com.aubynsamuel.cardit.R
+import com.aubynsamuel.cardit.ui.components.BottomTabs
 import com.aubynsamuel.cardit.ui.components.DetailItem
 import com.aubynsamuel.cardit.ui.components.ItemRow
 import com.aubynsamuel.cardit.ui.components.SwitchableTextField
@@ -95,6 +96,7 @@ fun ProfileScreen(
                 },
             )
         },
+        bottomBar = { BottomTabs(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -239,6 +241,8 @@ fun ProfileScreen(
                     }
                 )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
