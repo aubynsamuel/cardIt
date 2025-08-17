@@ -49,6 +49,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":core"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -90,7 +92,7 @@ dependencies {
     implementation(libs.converter.gson)
 
     // QR Code Generation (qrcode-kotlin)
-    implementation(libs.core)
+    implementation(libs.google.zxing)
 
     // Material Icons
     implementation(libs.androidx.material.icons.extended)
@@ -101,5 +103,4 @@ dependencies {
     ksp(libs.hilt.android.compiler)
 
     implementation(libs.material3)
-
 }

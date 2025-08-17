@@ -7,8 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import com.aubynsamuel.cardit.presentation.navigation.AppNavigation
-import com.aubynsamuel.cardit.presentation.theme.CardItTheme
+import com.aubynsamuel.cardit.ui.navigation.AppNavigation
+import com.aubynsamuel.cardit.ui.theme.CardItTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +21,7 @@ class MainActivity : ComponentActivity() {
             view.updatePadding(bottom = bottom)
             insets
         }
+
         setContent {
             CardItTheme {
                 AppNavigation()

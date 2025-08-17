@@ -39,7 +39,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRunt
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "barcodeScanning" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
-core = { module = "com.google.zxing:core", version.ref = "core" }
+google-zxing = { module = "com.google.zxing:core", version.ref = "core" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
@@ -72,4 +72,5 @@ android-test = { id = "com.android.test", version.ref = "agp" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "baselineprofile" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltPlugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 

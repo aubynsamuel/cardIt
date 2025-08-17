@@ -24,3 +24,6 @@ dependencyResolutionManagement {
 rootProject.name = "cardIt"
 include(":app")
 include(":baselineprofile")
+include(":data")
+include(":domain")
+include(":core")
